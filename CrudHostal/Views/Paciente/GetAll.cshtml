@@ -1,0 +1,64 @@
+﻿@model ML.Paciente
+@{
+    ViewBag.Title = "GetAll";
+}
+
+
+<div class="container">
+    <div class="Row">
+        <div class="col-md-8">
+            <h5>Pacientes </h5>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-success">Paciente</button>
+        </div>
+    </div>
+    <br />
+    <div class="row" style="display:flex; align-items:center; justify-content:center;">
+        <div class="col-md-10">
+
+            <table class="table ">
+                <thead>
+                    <tr class="table-secondary">
+                        <td class="text-center" style="font-weight:bold;">Editar</td>
+                        <td class="text-center" style="font-weight:bold;">Nombre</td>
+                        <td class="text-center" style="font-weight:bold;">AP</td>
+                        <td class="text-center" style="font-weight:bold;">AM</td>
+                        <td class="text-center" style="font-weight:bold;">Fecha Nacimiento</td>
+                        <td class="text-center" style="font-weight:bold;">Fecha Ingreso</td>
+                        <td class="text-center" style="font-weight:bold;">Tipo de Sangre</td>
+                        <td class="text-center" style="font-weight:bold;">Sexo</td>
+                        <td class="text-center" style="font-weight:bold;">Sintomas</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Paciente item in Model.Pacientes)
+                    {
+                        <tr>
+                            <td style="text-align:center; vertical-align:middle;">
+                                <a class="btn btn-info bi bi-box-arrow-in-right" href="@Url.Action("Delete","Paciente",new {Idpaciente=item.IdPaciente})"></a>
+                            </td>
+
+                            <td>@item.Nombre</td>
+                            <td>@item.AP</td>
+                            <td>@item.AM</td>
+                            <td>@item.FechaNacimiento</td>
+                            <td>@item.FechaIngreso</td>
+                            <td>@item.TipoSangre.Nombre</td>
+                            <td>@item.Sexo</td>
+                            <td>@item.Sintomas</td>
+
+
+                        </tr>
+                    }
+                </tbody>
+                </table>
+        </div>
+
+    </div>
+
+</div>
+

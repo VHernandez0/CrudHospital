@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="IdPaciente" />
+          </Key>
+          <Property Name="IdPaciente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="AP" Type="varchar" MaxLength="50" />
+          <Property Name="AM" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="FechaIngreso" Type="datetime" />
+          <Property Name="IdTipoSangre" Type="tinyint" />
+          <Property Name="sexo" Type="char" MaxLength="2" />
+          <Property Name="Sintomas" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TipoSangre">
+          <Key>
+            <PropertyRef Name="IdTipoSangre" />
+          </Key>
+          <Property Name="IdTipoSangre" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="fk_TipoSangre">
+          <End Role="TipoSangre" Type="Self.TipoSangre" Multiplicity="0..1" />
+          <End Role="Paciente" Type="Self.Paciente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSangre">
+              <PropertyRef Name="IdTipoSangre" />
+            </Principal>
+            <Dependent Role="Paciente">
+              <PropertyRef Name="IdTipoSangre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Addpaciente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="AP" Type="varchar" Mode="In" />
+          <Parameter Name="AM" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="FechaIngreso" Type="datetime" Mode="In" />
+          <Parameter Name="IdTipoSangre" Type="tinyint" Mode="In" />
+          <Parameter Name="Sexo" Type="char" Mode="In" />
+          <Parameter Name="Sintomas" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllPacientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllSangre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetByIdpaciente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Idpaciente" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HospitalModelStoreContainer">
+          <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoSangre" EntityType="Self.TipoSangre" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_TipoSangre" Association="Self.fk_TipoSangre">
+            <End Role="TipoSangre" EntitySet="TipoSangre" />
+            <End Role="Paciente" EntitySet="Paciente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="IdPaciente" />
+          </Key>
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="IdTipoSangre" Type="Byte" />
+          <Property Name="sexo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Sintomas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoSangre" Relationship="Self.fk_TipoSangre" FromRole="Paciente" ToRole="TipoSangre" />
+        </EntityType>
+        <EntityType Name="TipoSangre">
+          <Key>
+            <PropertyRef Name="IdTipoSangre" />
+          </Key>
+          <Property Name="IdTipoSangre" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Paciente" Relationship="Self.fk_TipoSangre" FromRole="TipoSangre" ToRole="Paciente" />
+        </EntityType>
+        <Association Name="fk_TipoSangre">
+          <End Role="TipoSangre" Type="Self.TipoSangre" Multiplicity="0..1" />
+          <End Role="Paciente" Type="Self.Paciente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSangre">
+              <PropertyRef Name="IdTipoSangre" />
+            </Principal>
+            <Dependent Role="Paciente">
+              <PropertyRef Name="IdTipoSangre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Paciente" EntityType="Self.Paciente" />
+          <EntitySet Name="TipoSangre" EntityType="Self.TipoSangre" />
+          <AssociationSet Name="fk_TipoSangre" Association="Self.fk_TipoSangre">
+            <End Role="TipoSangre" EntitySet="TipoSangre" />
+            <End Role="Paciente" EntitySet="Paciente" />
+          </AssociationSet>
+          <FunctionImport Name="Addpaciente">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="AP" Mode="In" Type="String" />
+            <Parameter Name="AM" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="FechaIngreso" Mode="In" Type="DateTime" />
+            <Parameter Name="IdTipoSangre" Mode="In" Type="Byte" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="Sintomas" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetByIdpaciente" ReturnType="Collection(HospitalModel.GetByIdpaciente_Result)">
+          <Parameter Name="Idpaciente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllPacientes" ReturnType="Collection(HospitalModel.GetAllPacientes_Result)" />
+          <FunctionImport Name="GetAllSangre" ReturnType="Collection(HospitalModel.GetAllSangre_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetByIdpaciente_Result">
+          <Property Type="Int32" Name="IdPaciente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AP" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AM" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" Precision="23" />
+          <Property Type="Byte" Name="IdTipoSangre" Nullable="true" />
+          <Property Type="String" Name="Nombre1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sexo" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Sintomas" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetAllPacientes_Result">
+          <Property Type="Int32" Name="IdPaciente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AP" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AM" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="DateTime" Name="FechaIngreso" Nullable="true" Precision="23" />
+          <Property Type="Byte" Name="IdTipoSangre" Nullable="true" />
+          <Property Type="String" Name="NombreSangre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sexo" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Sintomas" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetAllSangre_Result">
+          <Property Type="Byte" Name="IdTipoSangre" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospitalModelStoreContainer" CdmEntityContainer="HospitalEntities">
+          <EntitySetMapping Name="Paciente">
+            <EntityTypeMapping TypeName="HospitalModel.Paciente">
+              <MappingFragment StoreEntitySet="Paciente">
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="AM" ColumnName="AM" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="IdTipoSangre" ColumnName="IdTipoSangre" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="Sintomas" ColumnName="Sintomas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoSangre">
+            <EntityTypeMapping TypeName="HospitalModel.TipoSangre">
+              <MappingFragment StoreEntitySet="TipoSangre">
+                <ScalarProperty Name="IdTipoSangre" ColumnName="IdTipoSangre" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Addpaciente" FunctionName="HospitalModel.Store.Addpaciente" />
+          <FunctionImportMapping FunctionImportName="GetByIdpaciente" FunctionName="HospitalModel.Store.GetByIdpaciente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HospitalModel.GetByIdpaciente_Result">
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="AM" ColumnName="AM" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="IdTipoSangre" ColumnName="IdTipoSangre" />
+                <ScalarProperty Name="Nombre1" ColumnName="Nombre1" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="Sintomas" ColumnName="Sintomas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllPacientes" FunctionName="HospitalModel.Store.GetAllPacientes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HospitalModel.GetAllPacientes_Result">
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="AM" ColumnName="AM" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="IdTipoSangre" ColumnName="IdTipoSangre" />
+                <ScalarProperty Name="NombreSangre" ColumnName="NombreSangre" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="Sintomas" ColumnName="Sintomas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllSangre" FunctionName="HospitalModel.Store.GetAllSangre">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HospitalModel.GetAllSangre_Result">
+                <ScalarProperty Name="IdTipoSangre" ColumnName="IdTipoSangre" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
