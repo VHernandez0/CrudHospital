@@ -16,13 +16,31 @@ namespace BL
                 using(DL.HospitalEntities context=new DL.HospitalEntities())
                 {
                     var query = context.GetAllSangre();
-                   
+                    if (query != null)
+                    {
+                        result.Objects = new List<object>();
+                       
+                        foreach (var item in query)
+                        {
+                            ML.TipoSangre tipoSangre = new ML.TipoSangre();
+                            tipoSangre.IdTipoSangre = item.IdTipoSangre;
+                            tipoSangre.Nombre = item.Nombre;
+                            result.Objects.Add(tipoSangre);
+
+                        }
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
 
-                throw;
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
             }
             
             

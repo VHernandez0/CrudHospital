@@ -13,7 +13,7 @@
     <br />
     <div class="row">
         <div class="col-md-3">
-            <button type="button" class="btn btn-success">Paciente</button>
+            @Html.ActionLink("Agregar", "form", "paciente", htmlAttributes: new { @class = "btn btn-sucess bi bi-person-plus-fill" })
         </div>
     </div>
     <br />
@@ -32,6 +32,7 @@
                         <td class="text-center" style="font-weight:bold;">Tipo de Sangre</td>
                         <td class="text-center" style="font-weight:bold;">Sexo</td>
                         <td class="text-center" style="font-weight:bold;">Sintomas</td>
+                        <td class="text-center" style="font-weight:bold;">Eliminar</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +40,7 @@
                     {
                         <tr>
                             <td style="text-align:center; vertical-align:middle;">
-                                <a class="btn btn-info bi bi-box-arrow-in-right" href="@Url.Action("Delete","Paciente",new {Idpaciente=item.IdPaciente})"></a>
+                                <a class="btn btn-info bi bi-box-arrow-in-right" href="@Url.Action("form","Paciente",new {Idpaciente=item.IdPaciente})"></a>
                             </td>
 
                             <td>@item.Nombre</td>
@@ -50,7 +51,10 @@
                             <td>@item.TipoSangre.Nombre</td>
                             <td>@item.Sexo</td>
                             <td>@item.Sintomas</td>
-
+                            <td style="text-align:center; vertical-align:middle;">
+                                <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete","Paciente",new {IdPaciente=item.IdPaciente})"
+                                   onclick="return confirm('Estas seguro de que deseas eliminar el paciente? ');"><i class="bi bi-eraser-fill" style="color:mintcream"></i></a>
+                            </td>
 
                         </tr>
                     }

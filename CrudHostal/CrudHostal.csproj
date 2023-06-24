@@ -172,6 +172,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Paciente\GetAll.cshtml" />
     <Content Include="Views\Paciente\form.cshtml" />
+    <Content Include="Views\Paciente\Modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

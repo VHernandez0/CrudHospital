@@ -8,8 +8,8 @@ namespace ML
 {
     public class Paciente
     {
-        public int IdPaciente { get; set; }
-        public int IdSangre { get; set; }
+        public int? IdPaciente { get; set; }
+        public byte IdTipoSangre { get; set; }
         public string Nombre { get; set; }
         public string AP { get; set; }
         public string AM { get; set; }
@@ -20,5 +20,6 @@ namespace ML
         public string Sintomas { get; set; }
         public string NombreSangre { get; set; }
         public List <object> Pacientes{ get; set; }
+        public object Object { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace DL
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
         public Nullable<System.DateTime> FechaIngreso { get; set; }
         public Nullable<byte> IdTipoSangre { get; set; }
-        public string Nombre1 { get; set; }
+        public string NombreSangre { get; set; }
         public string sexo { get; set; }
         public string Sintomas { get; set; }
     }

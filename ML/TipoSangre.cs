@@ -8,7 +8,8 @@ namespace ML
 {
     public class TipoSangre
     {
-        public int IdTipoSangre { get; set; }
+        public byte IdTipoSangre { get; set; }
         public string Nombre { get; set; }
+        public List<object> Objects { get; set; }
     }
 }
